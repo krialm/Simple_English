@@ -8,6 +8,7 @@ from random import randint
 import os
 import json
 
+
 class User:
 
     def __init__(self):
@@ -21,8 +22,8 @@ class User:
         self.window_width = 400
         self.window_height = 160
         self.is_new_user = True 
-        self.user_data_path = 'C:/Users/konot/Desktop/XEnglish/user_data.json'
-        files = os.listdir('C:/Users/konot/Desktop/XEnglish/topics')
+        self.user_data_path = '/Users/krialm/Documents/GitHub/Simple_English/user_data.json'
+        files = os.listdir('/Users/krialm/Documents/GitHub/Simple_English/topics')
 
         self.topics = [x.replace('.xlsx', '') for x in files ]
 
