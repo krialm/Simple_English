@@ -8,6 +8,7 @@ from random import randint
 import os
 import json
 
+
 class User:
 
     def __init__(self):
@@ -49,6 +50,7 @@ class User:
 
     def create_user(self):
         if self.current_path == '': 
+            pass
             
         with open(self.user_data_path, "w") as file:
             json.dump({'topic': self.topics_var.get(), 'timer': self.timer.get(), 'geometry': self.geometry}, file)
