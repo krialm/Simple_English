@@ -21,8 +21,8 @@ class User:
         self.window_width = 400
         self.window_height = 160
         self.is_new_user = True 
-        self.user_data_path = 'C:/Users/konot/Desktop/XEnglish/user_data.json'
-        files = os.listdir('C:/Users/konot/Desktop/XEnglish/topics')
+        self.user_data_path = 'user_data.json'
+        files = os.listdir('topics')
 
         self.topics = [x.replace('.xlsx', '') for x in files ]
 
@@ -35,6 +35,7 @@ class User:
             self.topic = user_data['topic']
             self.timer = user_data['timer']
             self.geometry = user_data['geometry']
+            self.load_words()
             self.start_app()
             
 
@@ -42,12 +43,19 @@ class User:
         with open(filename, "r") as file:
             data = json.load(file)
             return data
+        
+    def load_words(self):
+        self.df = pd.read_excel(fr'topics/{self.topic}.xlsx')
 
     def create_user(self):
+        if self.current_path == '': 
+            
         with open(self.user_data_path, "w") as file:
             json.dump({'topic': self.topics_var.get(), 'timer': self.timer.get(), 'geometry': self.geometry}, file)
         self.root.destroy()
         self.start_app()
+
+
 
     # creating a setting window
     def setting_window(self):
@@ -74,7 +82,7 @@ class User:
         def getting_path():
             # selecting path to csv file with data
             self.current_path = filedialog.askopenfilename(initialdir="/", title="Select file",
-                                                       filetypes=(("xlsx files", "*.xlsx"), ('CSV files', '.csv'), ("all files", "*.*")))
+                                                       filetypes=(("xlsx files", "*.xlsx"), ('CSV files', '.csv')))
             if '.csv' in self.current_path:
                 self.df = pd.read_csv(self.current_path)
             elif '.xlsx' in self.current_path:
@@ -132,18 +140,6 @@ class User:
             word_ind = randint(0, len(self.df))
         
 
-    # @staticmethod
-    # def from_dict(data):
-    #     return UserData(data["name"], data["age"], data["email"], data["numbers"])
-
-    # def save_user_data(user_data, filename):
-    #     with open(filename, "w") as file:
-    #         json.dump(user_data.to_dict(), file)
-
-    # def load_user_data(filename):
-    #     with open(filename, "r") as file:
-    #         data = json.load(file)
-    #         return UserData.from_dict(data)
 
 
     def start_app(self):
